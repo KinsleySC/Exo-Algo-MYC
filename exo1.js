@@ -9,20 +9,32 @@ for (let i = 0; i < input.length; i += 2) {
     decompressed += chars.repeat(count);
 }
 
-let mostFrequent = {}
+let freq = {};
 
-for (let i = 0; i < decompressed.length; i++) {
-    let count = decompressed[i]
-    if (decompressed[i]) {
-        mostFrequent[count] = decompressed[i] + 1;
+for (let char of decompressed) {
+    if (freq[char]) {
+        freq[char] += 1;
     } else {
-        mostFrequent[count] = 1;
+        freq[char] = 1;
     }
+}
+
+let mostFrequent = "";
+let maxCount = 0;
+let uniqueChars = 0;
+
+for (let letter in freq) {
+    if (freq[letter] > maxCount) {
+        maxCount = freq[letter];
+        mostFrequent = letter;
+    }
+    uniqueChars += 1;
 }
 
 const res = [
     decompressed,
     mostFrequent,
+    uniqueChars
 ]
 
 console.log(res);
